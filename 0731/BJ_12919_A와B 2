@@ -1,0 +1,46 @@
+/**
+ * 
+ */
+package algo731;
+
+/**
+ * <pre>
+ * 
+ * </pre>
+ * @author 최시원
+ *
+ */
+import java.util.Scanner;
+public class BJ12919 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		String start = sc.next();
+		String ab = sc.next();
+		if(AB(start, ab)) {
+			System.out.println(1);
+		}else {
+			System.out.println(0);
+		}
+	}
+	
+	public static boolean AB(String start, String ab) {
+		
+		
+		if(start.length() == ab.length() && !start.equals(ab)) {
+			return false;
+		}
+		
+		if(start.equals(ab)) return true;
+		
+		String plusA = start + "A";
+		String plusB = "";
+		plusB += "B";
+		for(int i=start.length()-1; i>=0; i--) {
+			plusB += start.charAt(i);
+		}
+		
+		return (AB(plusA, ab) || AB(plusB, ab));
+	}
+}
