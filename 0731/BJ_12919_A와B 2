@@ -13,11 +13,13 @@ package algo731;
 import java.util.Scanner;
 public class BJ12919 {
 
+	static int abLen;
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
 		String start = sc.next();
 		String ab = sc.next();
+		abLen = start.length();
 		if(AB(start, ab)) {
 			System.out.println(1);
 		}else {
@@ -27,20 +29,31 @@ public class BJ12919 {
 	
 	public static boolean AB(String start, String ab) {
 		
-		
-		if(start.length() == ab.length() && !start.equals(ab)) {
+		if(ab.length() == abLen) {
+			if(ab.equals(start)) return true;
 			return false;
 		}
 		
-		if(start.equals(ab)) return true;
 		
-		String plusA = start + "A";
-		String plusB = "";
-		plusB += "B";
-		for(int i=start.length()-1; i>=0; i--) {
-			plusB += start.charAt(i);
+		if(ab.charAt(ab.length()-1)=='A') {
+			if(AB(start,ab.substring(0, ab.length()-1))) {
+				return true;
+			}
 		}
 		
-		return (AB(plusA, ab) || AB(plusB, ab));
+		if(ab.charAt(0) == 'B') {
+			StringBuilder reverse = new StringBuilder();
+            reverse.append(ab.substring(1,ab.length()));
+            if(AB(start,reverse.reverse().toString())) {
+                return true;
+            }
+		}
+		return false;
+		
+//		String plusA = start + "A";
+//		String plusB = start + "B";
+//		StringBuffer sb = new StringBuffer(plusB);
+//		plusB = sb.reverse().toString();
+//		return (AB(plusA, ab) || AB(plusB, ab));
 	}
 }
